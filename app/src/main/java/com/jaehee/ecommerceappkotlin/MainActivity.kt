@@ -1,10 +1,13 @@
 package com.jaehee.ecommerceappkotlin
 
-import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.jaehee.ecommerceappkotlin.databinding.ActivityMainBinding
 
 
@@ -19,28 +22,27 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        /*binding.largeRadioButton.setOnClickListener {
-            binding.textView.textSize = 50f
-        }
-        binding.mediumRadioButton.setOnClickListener {
-            binding.textView.textSize = 20f
-        }
-        binding.smallRadioButton.setOnClickListener {
-            binding.textView.textSize = 10f
-        }
-        */
+        binding.btnGetData.setOnClickListener {
+            val serverURL: String = "http://61.109.169.174/PHPTest/test_file.php"
+            var requestQ: RequestQueue = Volley.newRequestQueue(this@MainActivity)
+            //웹페이지에 있는 String text가져오기
+            var stringRequest = StringRequest(Request.Method.GET, serverURL,
+                Response.Listener { response ->
 
-        binding.btnAdd.setOnClickListener{
-            sharedP = getSharedPreferences("addData", Context.MODE_PRIVATE)
-            var myEditor = sharedP?.edit()
-            myEditor?.putString("product_name", binding.edtProduct.text.toString())
-            myEditor?.commit() // data 저장
-            Toast.makeText(this@MainActivity, "The Product is Saved", Toast.LENGTH_SHORT).show()
+                    binding.txtHelloWorld.text = response
+
+                }, Response.ErrorListener { error ->
+
+                    binding.txtHelloWorld.text = error.message
+
+                }
+            )
+
+            requestQ.add(stringRequest)
+
+
         }
 
-        binding.btnGetProduct.setOnClickListener{
-            binding.txtGetProduct.text = sharedP?.getString("product_name", "nothing")
-        }
 
     }
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EcommerceAppKotlin</string>
+    <string name="textview">TextView</string>
+    <string name="get_data_from_server">GET DATA FROM SERVER</string>
 </resources>
