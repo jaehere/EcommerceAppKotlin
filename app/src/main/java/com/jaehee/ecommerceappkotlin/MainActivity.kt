@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 }
             )
 
-            requestQ.add(stringRequest)
+//            requestQ.add(stringRequest)
 
 
         }
